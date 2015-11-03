@@ -40,7 +40,7 @@ y_test[,2] = activity_labels[y_test[,1]]
 names(y_test) = c("Activity_ID", "Activity_Label")
 names(subject_test) = "subject"
 
-# Bind data
+# Bind test data
 test_data <- cbind(as.data.table(subject_test), y_test, X_test)
 
 # Load and process X_train & y_train data.
@@ -59,7 +59,7 @@ y_train[,2] = activity_labels[y_train[,1]]
 names(y_train) = c("Activity_ID", "Activity_Label")
 names(subject_train) = "subject"
 
-# Bind data
+# Bind train data
 train_data <- cbind(as.data.table(subject_train), y_train, X_train)
 
 # Merge test and train data
@@ -72,4 +72,5 @@ melt_data      = melt(data, id = id_labels, measure.vars = data_labels)
 # Apply mean function to dataset using dcast function
 tidy_data   = dcast(melt_data, subject + Activity_Label ~ variable, mean)
 
+# Generate the Tidy Data dataset file
 write.table(tidy_data, file = "./tidy_data.txt")
